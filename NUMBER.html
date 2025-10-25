@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gul Bahar</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #000;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            overflow: hidden;
+            flex-direction: column;
+        }
+
+        /* Background Video Styling */
+        video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 0.5; /* Slight transparency for readability */
+        }
+
+        /* Container for Content */
+        .container {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            border-radius: 10px;
+            max-width: 80%;
+        }
+
+        /* Title Styling */
+        .title {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #ff4d94; /* Pinkish love theme */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            display: none; /* Hidden until lyrics start */
+        }
+
+        /* Lyrics Styling */
+        #lyrics {
+            font-size: 24px;
+            display: none; /* Hidden until lyrics start */
+        }
+
+        /* Button Styling */
+        .button {
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color: #ff4d94;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            z-index: 1;
+        }
+
+        .button:hover {
+            background-color: #e03377;
+        }
+
+        /* Start Button (Initially Visible) */
+        #start-button {
+            margin-bottom: 20px;
+        }
+
+        /* Redirect Button (Hidden Until Lyrics Finish) */
+        #redirect-button {
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Video -->
+    <video autoplay muted loop preload="auto">
+        <source src="https://cdn.pixabay.com/video/2024/03/27/206971_large.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Content Container -->
+    <div class="container">
+        <div class="title" id="title">গুল বাহার 😍❤️</div>
+        <div id="lyrics"></div>
+        <button class="button" id="start-button" onclick="startLyrics()">Start Lyrics</button>
+        <button class="button" id="redirect-button" onclick="goToMainPage()">Go to Jackpot Page</button>
+    </div>
+
+    <script>
+        const lyrics = [
+            "মুসাফিরি দিশেহারা বাঁধা প্রেমের কাফেলায়...",
+            "কেচ্ছা গজল মেহফিলে হাঙামা মাতে জলসায়..",
+            "হঠাৎ একদিন গায়েব হয়ে ঘায়েল করে এ আমারে..",
+            "করলো প্রেমের ইশতাহার...",
+            "হোসনে আরা গুলবাহার...",
+            "খোশমেজাজি মন তাহার....",
+            "নাজির হলো ঘুম আমার...(গুল বাহার ..)...",
+            "নাম ছিল তার গুলবাহার দেখতে ভারী চমৎকার...",
+            "তুলনা যে হয় না তার হোসনে আরা গুলবাহার...."
+        ];
+
+        const delays = [400, 800, 700, 500, 400, 400, 3900, 600, 500]; // Delays in milliseconds
+
+        const startButton = document.getElementById('start-button');
+        const redirectButton = document.getElementById('redirect-button');
+        const title = document.getElementById('title');
+        const lyricsElement = document.getElementById('lyrics');
+
+        async function startLyrics() {
+            // Hide start button and show title and lyrics container
+            startButton.style.display = 'none';
+            title.style.display = 'block';
+            lyricsElement.style.display = 'block';
+
+            // Initial delay of 1 second
+            await new Promise(resolve => setTimeout(resolve, 1000));
+
+            // Typing effect for lyrics
+            for (let i = 0; i < lyrics.length; i++) {
+                const line = lyrics[i];
+                for (let char of line) {
+                    lyricsElement.textContent += char;
+                    await new Promise(resolve => setTimeout(resolve, 90)); // Character delay
+                }
+                lyricsElement.innerHTML += '<br>'; // New line
+                await new Promise(resolve => setTimeout(resolve, delays[i % delays.length])); // Line delay
+            }
+
+            // Show redirect button and scroll to it
+            redirectButton.style.display = 'block';
+            redirectButton.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function goToMainPage() {
+            // Replace with your main page URL
+            window.location.href = 'https://example.com/jackpot';
+        }
+    </script>
+</body>
+</html>
